@@ -1,4 +1,4 @@
-name: gaussian_splatting
+name: lzy_gauss
 channels:
   - pytorch
   - conda-forge
