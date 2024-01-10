@@ -27,7 +27,7 @@ class GaussianModel:
         def build_covariance_from_scaling_rotation(scaling, scaling_modifier, rotation):
             L = build_scaling_rotation(scaling_modifier * scaling, rotation)
             actual_covariance = L @ L.transpose(1, 2)
-            symm = strip_symmetric(actual_covariance)
+            symm = strip_symmetric(actual_covariance) ##return covariance based on scale and rotation
             return symm
         
         self.scaling_activation = torch.exp
@@ -56,9 +56,9 @@ class GaussianModel:
         self.optimizer = None
         self.percent_dense = 0
         self.spatial_lr_scale = 0
-        self.setup_functions()
+        self.setup_functions() #some feature activation function
 
-    def capture(self):
+    def capture(self): #return Gaussian feature
         return (
             self.active_sh_degree,
             self._xyz,
@@ -74,7 +74,7 @@ class GaussianModel:
             self.spatial_lr_scale,
         )
     
-    def restore(self, model_args, training_args):
+    def restore(self, model_args, training_args):#restore the model feature
         (self.active_sh_degree, 
         self._xyz, 
         self._features_dc, 
@@ -87,6 +87,7 @@ class GaussianModel:
         denom,
         opt_dict, 
         self.spatial_lr_scale) = model_args
+
         self.training_setup(training_args)
         self.xyz_gradient_accum = xyz_gradient_accum
         self.denom = denom

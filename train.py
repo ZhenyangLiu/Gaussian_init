@@ -210,7 +210,7 @@ if __name__ == "__main__":
     args = parser.parse_args(sys.argv[1:])
     args.save_iterations.append(args.iterations)
     
-    print("Optimizing " + args.model_path)
+    print("Optimizing " + args.model_path) #if loading a less-trained model continue to optimize
 
     # Initialize system state (RNG)
     safe_state(args.quiet)
